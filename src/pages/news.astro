@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content'
+import Base from '@layouts/Base.astro'
+
+const news = await getCollection('news')
+---
+
+<Base>
+  <ul class="flex flex-col items-center space-y-2 w-2/3 m-auto">
+    {
+      news.map((x, i) => (
+        <li class="w-full hover:bg-base-200">
+          <a href={x.data.link} class="px-4 py-4 block">
+            <div class="text-xl text-left">{x.data.title}</div>
+            <div class="text-sm font-thin text-right">
+              {x.data.pubdate?.toLocaleString()}
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

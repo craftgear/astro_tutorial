@@ -1,16 +1,56 @@
 ---
+import { marked } from 'marked'
+import './_temp.css'
+import Base from '@layouts/Base.astro'
+import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
 
+const timeline = await getCollection('timeline')
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+  <div class="grid gap-10 place-items-center">
+    {
+      timeline.map((x) => {
+        const firstImage = x.data.record.embed?.images?.at(0)
+        const external = x.data.record.embed?.external
+        return (
+          <div class="card bg-base-300 w-96 shadow-xlm mb-4">
+            <div class="card-body flex flex-row items-center space-x-4">
+              <div class="avatar">
+                <div class="mask rounded-full w-16 h-16">
+                  <Image
+                    inferSize
+                    src={`${x.data.author.avatar}`}
+                    alt={x.data.author.displayName}
+                  />
+                </div>
+              </div>
+              <article set:html={marked.parse(x.data.record.text)} />
+            </div>
+            <figure>
+              {firstImage && (
+                <Image
+                  inferSize
+                  src={`https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:mkkry7dgsxrm2gkbguwh2uof/${firstImage.image.ref.$link}`}
+                  alt={firstImage.alt}
+                />
+              )}
+              {external && (
+                <a href={external.uri} alt={external.title}>
+                  {external.thumb && (
+                    <Image
+                      inferSize
+                      src={`https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:mkkry7dgsxrm2gkbguwh2uof/${external.thumb?.ref.$link}`}
+                      alt={external.title}
+                    />
+                  )}
+                </a>
+              )}
+            </figure>
+          </div>
+        )
+      })
+    }
+  </div>
+</Base>
