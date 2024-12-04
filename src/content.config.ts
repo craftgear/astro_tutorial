@@ -27,7 +27,7 @@ const news = defineCollection({
 
 const timeline = defineCollection({
   loader: authorFeedLoader({
-    identifier: 'craftgear.bsky.social',
+    identifier: 'bsky.app',
     limit: 20,
   }),
 })

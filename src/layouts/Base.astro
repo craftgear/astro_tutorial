@@ -15,11 +15,13 @@ import Footer from '@components/Footer.astro'
     <title>Astro</title>
     <ClientRouter fallback="none" />
   </head>
-  <body class="h-full flex flex-col items-center overflow-y-scroll">
-    <Header />
-    <main transition:animate="fade" class="grow w-full max-w-3xl p-4">
-      <slot />
-    </main>
-    <Footer />
+  <body class="h-full">
+    <div class="h-full flex flex-col items-center overflow-y-scroll">
+      <Header />
+      <main transition:animate="fade" class="grow w-full max-w-3xl p-4">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

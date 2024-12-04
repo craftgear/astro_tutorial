@@ -1,4 +1,4 @@
-export const yesterdayString = () => {
+export const yesterdayYMD = () => {
   const date = new Date()
   const yesterday = date.setDate(date.getDate() - 1)
 

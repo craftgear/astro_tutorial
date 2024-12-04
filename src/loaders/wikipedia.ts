@@ -1,25 +1,30 @@
 import type { Loader } from 'astro/loaders'
 import { z } from 'astro:content'
 
-import { yesterdayString } from '@utils/day'
+import { yesterdayYMD } from '@utils/day'
 
 type Mostread = {
   pageid: number
+  timestamp: string
 }
 
 export const wikipediaLoader = (): Loader => ({
   name: 'wikipedia',
-  load: async (context) => {
-    const [y, mm, dd] = yesterdayString()
+  load: async ({ store, generateDigest }) => {
+    const [y, mm, dd] = yesterdayYMD()
     const res = await fetch(
       `https://api.wikimedia.org/feed/v1/wikipedia/ja/featured/${y}/${mm}/${dd}`,
     )
     const json = await res.json()
 
-    context.store.clear()
+    store.clear()
 
     json.mostread.articles.forEach((x: Mostread) => {
-      context.store.set({ id: `${x.pageid}`, data: x })
+      store.set({
+        id: `${x.pageid}`,
+        data: x,
+        digest: generateDigest(x.timestamp),
+      })
     })
   },
   schema: z.object({
@@ -37,6 +42,7 @@ export const wikipediaLoader = (): Loader => ({
         height: z.number(),
       })
       .optional(),
+    timestamp: z.string(),
     description: z.string(),
     content_urls: z.object({
       desktop: z.object({

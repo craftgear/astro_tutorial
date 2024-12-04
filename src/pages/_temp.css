@@ -8,10 +8,14 @@ a {
   color: theme(colors.primary);
 }
 
+a:hover img {
+  opacity: 0.5;
+}
+
 figure {
   background-color: white;
 }
 
-a:hover img {
-  opacity: 0.5;
+article {
+  white-space: pre-line;
 }
