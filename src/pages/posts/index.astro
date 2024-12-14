@@ -11,10 +11,10 @@ const posts = (await getCollection('posts')).sort(
 
 <Base>
   <section>
-    <ul class="flex flex-wrap justify-center gap-4 m-0 p-0">
+    <ul class="m-0 flex flex-wrap justify-center gap-4 p-0">
       {
         posts.map((post) => (
-          <li class="first:w-full first:flex first:flex-col first:items-center w-[calc(50%-2rem)]">
+          <li class="w-[calc(50%-2rem)] first:flex first:w-full first:flex-col first:items-center">
             <a href={`/posts/${post.id}/`}>
               <Image
                 width={720}

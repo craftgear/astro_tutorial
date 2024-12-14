@@ -3,6 +3,7 @@ import { glob } from 'astro/loaders'
 import { feedLoader } from '@ascorbic/feed-loader'
 import { authorFeedLoader } from '@ascorbic/bluesky-loader'
 import { wikipediaLoader } from '@loaders/wikipedia'
+import { githubLoader } from '@loaders/github'
 
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: 'src/../blog_examples' }),
@@ -36,4 +37,8 @@ const wikipedia = defineCollection({
   loader: wikipediaLoader(),
 })
 
-export const collections = { posts, news, timeline, wikipedia }
+const github = defineCollection({
+  loader: githubLoader(),
+})
+
+export const collections = { posts, news, timeline, wikipedia, github }
