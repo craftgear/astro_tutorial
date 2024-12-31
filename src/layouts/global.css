@@ -1,8 +1,0 @@
-a {
-  transition-duration: 250ms;
-  transition-property: color;
-}
-
-a:hover {
-  color: theme(colors.accent);
-}
