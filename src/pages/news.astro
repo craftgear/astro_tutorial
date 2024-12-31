@@ -1,0 +1,28 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content'
+import Base from '@layouts/Base.astro'
+import Counter from '@components/Counter'
+
+type Item = CollectionEntry<'news'>
+const news = await getCollection('news')
+---
+
+<Base>
+  <Counter client:idle />
+  <ul class="m-auto flex list-none flex-col items-center space-y-2">
+    {
+      news.map((x: Item) => (
+        <li class="w-full hover:bg-base-200">
+          <a href={x.data.link} class="flex items-center px-4 py-4">
+            <div class="text-right text-2xl font-bold">
+              {x.data.pubdate?.toLocaleString().slice(-8, -3)}
+            </div>
+            <div class="ml-4 border-l-2 border-base-content pl-4 text-left text-2xl hover:border-accent">
+              {x.data.title}
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

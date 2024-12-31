@@ -1,0 +1,11 @@
+span {
+  color: theme(colors.orange.300);
+}
+
+a {
+  text-decoration-line: none !important;
+}
+
+a:hover {
+  color: theme(colors.accent);
+}
