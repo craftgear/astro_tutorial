@@ -1,66 +1,11 @@
 ---
-import Base from '../layouts/Base.astro'
-import { getCollection } from 'astro:content'
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
 
-const timeline = await getCollection('timeline')
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<style>
-  ul {
-    list-style-type: disc;
-    list-style-position: inside;
-    margin: 1rem 0;
-  }
-
-  a {
-    color: theme(colors.primary);
-  }
-
-  a:hover img {
-    opacity: 0.5;
-  }
-
-  figure {
-    background-color: white;
-  }
-
-  article {
-    white-space: pre-line;
-  }
-</style>
-
-<Base>
-  <div class="grid place-items-center gap-y-8">
-    {
-      timeline.map((x) => {
-        const firstImage = x.data.embed?.images?.at(0)
-        const external = x.data.embed?.external
-
-        return (
-          <div class="card w-1/2 bg-base-300 shadow-xl">
-            <div class="card-body flex w-full flex-row items-center space-x-4">
-              <img
-                class="mask h-16 w-16 rounded-full"
-                src={`${x.data.author.avatar}`}
-                alt={x.data.author.displayName}
-              />
-              <article>{x.data.record.text}</article>
-            </div>
-            <figure>
-              {firstImage && (
-                <img src={firstImage.thumb} alt={firstImage.alt} />
-              )}
-              {external && (
-                <a href={external.uri}>
-                  {external.thumb && (
-                    <img src={external.thumb} alt={external.title} />
-                  )}
-                </a>
-              )}
-            </figure>
-          </div>
-        )
-      })
-    }
-  </div>
-</Base>
+<Layout>
+	<Welcome />
+</Layout>
