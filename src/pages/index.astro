@@ -1,11 +1,16 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
+import Base from '@layouts/Base.astro'
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<style>
+  span {
+    color: var(--color-green-300);
+  }
+</style>
+<Base>
+  <h1>Index</h1>
+  <a href="/posts">go to Posts</a>
+  <span>style this</span>
+</Base>

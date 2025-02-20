@@ -1,0 +1,33 @@
+---
+import Base from '@layouts/Base.astro'
+import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
+
+import aboutImage from '../../../blog_examples/imgs/blog-placeholder-about.jpg'
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+)
+---
+
+<Base>
+  <section>
+    <ul class="flex flex-wrap justify-center gap-4 m-0 p-0">
+      {
+        posts.map((post) => (
+          <li class="first:w-full first:flex first:flex-col first:items-center w-[calc(50%-2rem)]">
+            <a href={`/posts/${post.id}/`}>
+              <Image
+                width={720}
+                height={360}
+                src={aboutImage}
+                alt="post title image"
+              />
+              <h4 class="title">{post.data.title}</h4>
+              <p class="date">{post.data.pubDate.toLocaleString()}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>
